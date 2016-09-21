@@ -1,0 +1,169 @@
+hadoop fs -rm -skipTrash -R  /user/s376659/sqoop/Tables/X3_FLPDOCTRN_SCOOP
+
+sqoop import \
+-D oraoop.disabled=true \
+-D mapred.child.java.opts="-Djava.security.egd=file:/dev/../dev/urandom" \
+--connect 'jdbc:oracle:thin:@rapid_db_ha.app.emirates.com:1526:rpd' \
+--username 'S378362'  \
+--password 'S378362'  \
+--fetch-size '10000' \
+--direct \
+--query " SELECT * FROM X3_FLPDOCTRN_SCOOP
+WHERE \$CONDITIONS " \
+--as-avrodatafile \
+--map-column-java UPDDAT=String,FLNTAXPRCDAT=String,TKTSALDAT=String,FLNSALDAT=String,CPNVALDAT=String,CLODAT=String  \
+--null-string '\\N' \
+--null-non-string '\\N' \
+--target-dir /user/s376659/sqoop/Tables/X3_FLPDOCTRN_SCOOP \
+-m 10 \
+--split-by UNQSEQNUM
+
+hadoop fs -rm -skipTrash -R  /user/s376659/sqoop/Tables/X3_FLPDOCTRN_SCOOP_1
+
+sqoop import \
+-D oraoop.disabled=true \
+-D mapred.child.java.opts="-Djava.security.egd=file:/dev/../dev/urandom" \
+--connect 'jdbc:oracle:thin:@rapid_db_ha.app.emirates.com:1526:rpd' \
+--username 'S378362'  \
+--password 'S378362'  \
+--fetch-size '10000' \
+--direct \
+--query " SELECT * FROM X3_FLPDOCTRN_SCOOP
+WHERE \$CONDITIONS " \
+--as-avrodatafile \
+--map-column-java UPDDAT=String,FLNTAXPRCDAT=String,TKTSALDAT=String,FLNSALDAT=String,CPNVALDAT=String,CLODAT=String  \
+--null-string '\\N' \
+--null-non-string '\\N' \
+--target-dir /user/s376659/sqoop/Tables/X3_FLPDOCTRN_SCOOP_1 \
+-m 10 \
+--split-by UNQSEQNUM
+
+
+hadoop fs -rm -skipTrash -R  /user/s376659/sqoop/Tables/X3_FLPDOCTRN_SCOOP_2
+
+sqoop import \
+-D oraoop.disabled=true \
+-D mapred.child.java.opts="-Djava.security.egd=file:/dev/../dev/urandom" \
+--connect 'jdbc:oracle:thin:@rapid_db_ha.app.emirates.com:1526:rpd' \
+--username 'S378362'  \
+--password 'S378362'  \
+--fetch-size '10000' \
+--direct \
+--query " SELECT * from (select X1.*,X2.saldat ISSUE_DATE FROM X3_FLPDOCTRN_SCOOP X1,SLPDOCHDR X2 where X2.docnum = X1.docnum and X2.CARNUMCOD = X1.CARNUMCOD)
+WHERE \$CONDITIONS " \
+--as-avrodatafile \
+--map-column-java UPDDAT=String,FLNTAXPRCDAT=String,TKTSALDAT=String,FLNSALDAT=String,CPNVALDAT=String,CLODAT=String  \
+--null-string '\\N' \
+--null-non-string '\\N' \
+--target-dir /user/s376659/sqoop/Tables/X3_FLPDOCTRN_SCOOP_2 \
+-m 10 \
+--split-by UNQSEQNUM
+
+
+
+
+hadoop fs -rm -skipTrash -R  /user/s376659/sqoop/Tables/X3_FLPDOCTRN_SCOOP_3
+
+sqoop import \
+-D oraoop.disabled=true \
+-D mapred.child.java.opts="-Djava.security.egd=file:/dev/../dev/urandom" \
+--connect 'jdbc:oracle:thin:@rapid_db_ha.app.emirates.com:1526:rpd' \
+--username 'S378362'  \
+--password 'S378362'  \
+--fetch-size '10000' \
+--direct \
+--query " SELECT * FROM X3_FLPDOCTRN_SCOOP
+WHERE \$CONDITIONS " \
+--as-avrodatafile \
+--map-column-java UPDDAT=String,FLNTAXPRCDAT=String,TKTSALDAT=String,FLNSALDAT=String,CPNVALDAT=String,CLODAT=String  \
+--null-string '\\N' \
+--null-non-string '\\N' \
+--target-dir /user/s376659/sqoop/Tables/X3_FLPDOCTRN_SCOOP_3 \
+-m 10 \
+--split-by BATSEQ
+
+
+
+
+
+hadoop fs -rm -skipTrash -R  /user/s376659/sqoop/Tables/X3_FLPDOCTRN_SCOOP_4
+
+sqoop import \
+-D oraoop.disabled=true \
+-D mapred.child.java.opts="-Djava.security.egd=file:/dev/../dev/urandom" \
+--connect 'jdbc:oracle:thin:@rapid_db_ha.app.emirates.com:1526:rpd' \
+--username 'S378362'  \
+--password 'S378362'  \
+--fetch-size '10000' \
+--direct \
+--query " SELECT * FROM X3_FLPDOCTRN_SCOOP
+WHERE \$CONDITIONS " \
+--as-avrodatafile \
+--map-column-java UPDDAT=String,FLNTAXPRCDAT=String,TKTSALDAT=String,FLNSALDAT=String,CPNVALDAT=String,CLODAT=String  \
+--null-string '\\N' \
+--null-non-string '\\N' \
+--target-dir /user/s376659/sqoop/Tables/X3_FLPDOCTRN_SCOOP_4 \
+-m 10 \
+--split-by UNQSEQNUM
+
+
+
+
+
+hadoop fs -rm -skipTrash -R  /user/s376659/sqoop/Tables/X3_FLPDOCTRN_SCOOP_5
+
+sqoop import \
+-D oraoop.disabled=true \
+-D mapred.child.java.opts="-Djava.security.egd=file:/dev/../dev/urandom" \
+--connect 'jdbc:oracle:thin:@rapid_db_ha.app.emirates.com:1526:rpd' \
+--username 'S378362'  \
+--password 'S378362'  \
+--fetch-size '10000' \
+--direct \
+--boundary-query "select (select  min(unqseqnum) from X3_FLPDOCTRN_SCOOP) , (select  max(unqseqnum) from X3_FLPDOCTRN_SCOOP) from dual" \
+--query " SELECT * FROM X3_FLPDOCTRN_SCOOP
+WHERE \$CONDITIONS " \
+--as-avrodatafile \
+--map-column-java UPDDAT=String,FLNTAXPRCDAT=String,TKTSALDAT=String,FLNSALDAT=String,CPNVALDAT=String,CLODAT=String  \
+--null-string '\\N' \
+--null-non-string '\\N' \
+--target-dir /user/s376659/sqoop/Tables/X3_FLPDOCTRN_SCOOP_5 \
+-m 10 \
+--split-by UNQSEQNUM
+
+
+
+
+
+hadoop fs -rm -skipTrash -R  /user/s376659/sqoop/Tables/X3_FLPDOCTRN_SCOOP_6
+
+sqoop import \
+-D oraoop.disabled=true \
+-D mapred.child.java.opts="-Djava.security.egd=file:/dev/../dev/urandom" \
+--connect 'jdbc:oracle:thin:@rapid_db_ha.app.emirates.com:1526:rpd' \
+--username 'S378362'  \
+--password 'S378362'  \
+--fetch-size '10000' \
+--direct \
+--boundary-query "select (select  min(clonum) from flpclosta where upddat between '04-JAN-16' and '08-JAN-16') , (select  max(clonum) from flpclosta where upddat between '04-JAN-16' and '08-JAN-16') from dual" \
+--query " SELECT * FROM (
+SELECT x2.saldat   ISSUE_DATE,x1.*
+  FROM slpdochdr x2, FLPDOCTRN x1, flpbathdr X3, flpclosta a
+ WHERE a.upddat between '04-JAN-16' and '08-JAN-16'
+   and X3.fltnum = a.fltnum
+   and X3.fltdat = a.fltdat
+   and X3.frmarpcod = a.frmarpcod
+   and X3.tooarpcod = a.tooarpcod
+   and x1.batseq = X3.batseq
+   and x1.clonum = a.clonum
+   and x2.docnum = x1.docnum
+   and x2.carnumcod = x1.carnumcod)
+WHERE \$CONDITIONS " \
+--as-avrodatafile \
+--map-column-java UPDDAT=String,ISSUE_DATE=String,FLNTAXPRCDAT=String,TKTSALDAT=String,FLNSALDAT=String,CPNVALDAT=String,CLODAT=String  \
+--null-string '\\N' \
+--null-non-string '\\N' \
+--target-dir /user/s376659/sqoop/Tables/X3_FLPDOCTRN_SCOOP_6 \
+-m 10 \
+--split-by clonum
+
